@@ -955,12 +955,20 @@ angular.module('ui.grid')
    * @description Returns the $parse-able accessor for a column within its $scope
    * @param {GridColumn} col col object
    */
-  Grid.prototype.getQualifiedColField = function (col) {
+  
+      
+      
     var base = 'row.entity';
     if ( col.field === uiGridConstants.ENTITY_BINDING ) {
       return base;
     }
-    return gridUtil.preEval(base + '.' + col.field);
+    // when col.field startWith "[", like ['xxx']
+	  if(col.field.startsWith('[')){
+		  return gridUtil.preEval(base + col.field);
+	  }else{
+		  // when col.field startWith "[", like ['xxx']
+		  return gridUtil.preEval(base + '.' + col.field);
+	  }
   };
 
   /**
