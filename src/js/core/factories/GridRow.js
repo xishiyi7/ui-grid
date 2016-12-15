@@ -98,7 +98,13 @@ angular.module('ui.grid')
     if ( col.field === uiGridConstants.ENTITY_BINDING ) {
       return base;
     }
-    return gridUtil.preEval(base + '.' + col.field);
+    // when col.field startWith "[", like ['xxx']
+	  if(col.field.startsWith('[')){
+		  return gridUtil.preEval(base + col.field);
+	  }else{
+		  // when col.field startWith "[", like ['xxx']
+		  return gridUtil.preEval(base + '.' + col.field);
+	  }
   };
   
   
